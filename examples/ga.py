@@ -9,7 +9,7 @@ client = dict(
     client_secret='your_app_secret'
 )
 
-def authenticate():
+def authenticate_fs():
     if os.path.exists('tokens.json'):
         tokens = json.load(open('tokens.json'))
     else:
@@ -17,6 +17,11 @@ def authenticate():
         json.dump(tokens, open('tokens.json', 'w'), indent=4)
 
     return ga.oauth.authenticate(**tokens)
+
+def authenticate_keyring():
+    """ a nicer way to authenticate for projects that 
+    only run on your local machine """
+    return ga.utils.keyring.ask_and_authenticate('my-app', **client)    
 
 def first(accounts):
     print accounts
@@ -28,13 +33,28 @@ def first(accounts):
     return profile
 
 def query(profile):
-    query = profile.query('pageviews').days('2014-06-01', days=3)
-    report = query.execute()
+    """
+    Here's the basic list of query methods:
 
+        query
+            .sort
+            .filter
+            .range
+            .hours
+            .days
+            .weeks
+            .months
+            .years
+            .limit
+            .segment
+    """
+
+    query = profile.query('pageviews').days('2014-06-01', months=1)
+    report = query.execute()
     print report['pageviews']
 
 
 if __name__ == '__main__':
-    accounts = authenticate()
+    accounts = authenticate_keyring()
     profile = first(accounts)
     query(profile)

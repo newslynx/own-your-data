@@ -1,1 +1,12 @@
-git+git://github.com/stdbrouw/python-google-analytics/
+-e git+git://github.com/stdbrouw/python-google-analytics.git#egg=googleanalytics
+-e git+git://github.com/stdbrouw/python-omniture.git#egg=omniture
+# -e git+git://github.com/newslynx/gnulynx.git#egg=gnulynx
+numpy
+scipy
+matplotlib
+ipython
+python-dateutil
+pandas
+requests
+dataset
+tweepy
