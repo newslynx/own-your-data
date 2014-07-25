@@ -9,4 +9,4 @@ python-dateutil
 pandas
 requests
 dataset
-tweepy
+birdfeeder
